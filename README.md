@@ -28,16 +28,16 @@ REST API система управления задачами с использ�
 
 2. **Клонируйте репозиторий**:
    ```sh
-   git clone <repository-url>
+   git clone https://github.com/Egor51/task-management.git
    cd task-management
    ```
 
 3. **Запустите dev-среду через Docker Compose**:
    ```sh
-   # Запуск сервисов разработки (БД, Prometheus, Grafana)
+   # Запуск app с сервисами разработки (App, БД, Prometheus, Grafana)
    docker compose -f docker-compose.dev.yml up -d
    
-   # Запуск Spring Boot в dev-профиле
+   # Запуск Spring Boot app в dev-профиле
    ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
    ```
 
@@ -53,7 +53,7 @@ REST API система управления задачами с использ�
    ./mvnw clean package -DskipTests
    ```
 
-2. **Запустите сервисы**:
+2. **Запустите**:
    ```sh
    docker compose up -d
    ```
