@@ -1,0 +1,89 @@
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQxMjk0MzU2LCJleHAiOjE3NDEzODA3NTZ9.4ii8vSwGDpjfDh8e9Zqwjati6xF5lcNznlZajgxSI-A
+### 📌 Регистрация пользователя (POST)
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securePassword123",
+  "firstName": "John",
+  "lastName": "Doe"
+}
+
+### 📌 Логин пользователя (POST) (получение JWT-токена)
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securePassword123"
+}
+
+### 📌 Создание задачи (POST) (Требуется JWT-токен)
+POST http://localhost:8080/api/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQxMjk0MzU2LCJleHAiOjE3NDEzODA3NTZ9.4ii8vSwGDpjfDh8e9Zqwjati6xF5lcNznlZajgxSI-A
+
+{
+  "title": "Разработка API",
+  "description": "Создать и задокументировать API",
+  "status": "PENDING",
+  "priority": "HIGH",
+  "dueDate": "2025-03-10T23:59:59"
+}
+
+### 📌 Получение задачи по ID (GET)
+GET http://localhost:8080/api/tasks/9
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQxMjk0MzU2LCJleHAiOjE3NDEzODA3NTZ9.4ii8vSwGDpjfDh8e9Zqwjati6xF5lcNznlZajgxSI-A
+
+### 📌 Обновление задачи (PUT)
+PUT http://localhost:8080/api/tasks/9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQxMjk0MzU2LCJleHAiOjE3NDEzODA3NTZ9.4ii8vSwGDpjfDh8e9Zqwjati6xF5lcNznlZajgxSI-A
+
+{
+  "title": "Обновленный заголовок",
+  "description": "Обновленное описание",
+  "status": "IN_PROGRESS",
+  "priority": "MEDIUM",
+  "dueDate": "2025-03-15T23:59:59"
+}
+
+### 📌 Удаление задачи (DELETE) (Только админ)
+DELETE http://localhost:8080/api/tasks/9
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQxMjk0MzU2LCJleHAiOjE3NDEzODA3NTZ9.4ii8vSwGDpjfDh8e9Zqwjati6xF5lcNznlZajgxSI-A
+
+### 📌 Получение всех задач (GET с фильтрацией и пагинацией)
+GET http://localhost:8080/api/tasks?page=0&size=5
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQxMjk0MzU2LCJleHAiOjE3NDEzODA3NTZ9.4ii8vSwGDpjfDh8e9Zqwjati6xF5lcNznlZajgxSI-A
+
+### 📌 Обновление статуса задачи (PATCH) (Только админ или исполнитель)
+PATCH http://localhost:8080/api/tasks/1/status?status=COMPLETED
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQxMjk0MzU2LCJleHAiOjE3NDEzODA3NTZ9.4ii8vSwGDpjfDh8e9Zqwjati6xF5lcNznlZajgxSI-A
+
+
+### 📌 Назначение исполнителя задачи (PATCH) (Только админ)
+PATCH http://localhost:8080/api/tasks/1/assign
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQxMjk0MzU2LCJleHAiOjE3NDEzODA3NTZ9.4ii8vSwGDpjfDh8e9Zqwjati6xF5lcNznlZajgxSI-A
+
+{
+  "assigneeId": 3
+}
+
+### 📌 Добавление комментария к задаче (POST) (Исполнитель или автор)
+POST http://localhost:8080/api/tasks/1/comments
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQxMjk0MzU2LCJleHAiOjE3NDEzODA3NTZ9.4ii8vSwGDpjfDh8e9Zqwjati6xF5lcNznlZajgxSI-A
+
+{
+  "content": "Отличная работа!"
+}
+
+### 📌 Получение всех комментариев к задаче (GET)
+GET http://localhost:8080/api/comments/9
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQxMjk0MzU2LCJleHAiOjE3NDEzODA3NTZ9.4ii8vSwGDpjfDh8e9Zqwjati6xF5lcNznlZajgxSI-A
+
+### 📌 Удаление комментария (DELETE) (Только автор комментария или админ)
+DELETE http://localhost:8080/api/comments/10
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQxMjk0MzU2LCJleHAiOjE3NDEzODA3NTZ9.4ii8vSwGDpjfDh8e9Zqwjati6xF5lcNznlZajgxSI-A
